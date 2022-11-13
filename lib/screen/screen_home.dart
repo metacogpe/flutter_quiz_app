@@ -35,78 +35,81 @@ class _HomeScreenState extends State<HomeScreen> {
     double width = screenSize.width;
     double height = screenSize.height;
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Quiz App'),
-          backgroundColor: Colors.deepPurple,
-          leading: Container(), // AppBar에서 페이지 이동시 뒤로가기 버튼 지우기 효과
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Center(
-              child: Image.asset(
-                'images/quiz.jpg',
-                width: width * 0.8,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(width * 0.024),
-            ),
-            Text(
-              'Flutter Quiz App',
-              style: TextStyle(
-                fontSize: width * 0.065,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              'Info About Quiz\n 퀴즈 풀기를 눌러 주세요.',
-              textAlign: TextAlign.center,
-            ),
-            Padding(
-              padding: EdgeInsets.all(width * 0.048),
-            ),
-            _buildStep(width, '1. 랜덤 퀴즈'),
-            _buildStep(width, '2. 문제를 읽고 정답을 선택'),
-            _buildStep(width, '3. 만점에 도전'),
-            Padding(
-              padding: EdgeInsets.all(width * 0.048),
-            ),
-            Container(
-              padding: EdgeInsets.all(width * 0.036),
-              child: Center(
-                child: ButtonTheme(
-                  minWidth: width * 0.8,
-                  height: height * 0.05,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: ElevatedButton(
-                    child: Text(
-                      '퀴즈 시작',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Colors.deepPurple),
-                      ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => QuizScreen(
-                            quizs: quizs,
-                      ),
-                      ),
-                      );
-                    },
-                  ),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Quiz App'),
+            backgroundColor: Colors.deepPurple,
+            leading: Container(), // AppBar에서 페이지 이동시 뒤로가기 버튼 지우기 효과
+          ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                child: Image.asset(
+                  'images/quiz.jpg',
+                  width: width * 0.8,
                 ),
               ),
-            )
-          ],
+              Padding(
+                padding: EdgeInsets.all(width * 0.024),
+              ),
+              Text(
+                'Flutter Quiz App',
+                style: TextStyle(
+                  fontSize: width * 0.065,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'Info About Quiz\n 퀴즈 풀기를 눌러 주세요.',
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: EdgeInsets.all(width * 0.048),
+              ),
+              _buildStep(width, '1. 랜덤 퀴즈'),
+              _buildStep(width, '2. 문제를 읽고 정답을 선택'),
+              _buildStep(width, '3. 만점에 도전'),
+              Padding(
+                padding: EdgeInsets.all(width * 0.048),
+              ),
+              Container(
+                padding: EdgeInsets.all(width * 0.036),
+                child: Center(
+                  child: ButtonTheme(
+                    minWidth: width * 0.8,
+                    height: height * 0.05,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: ElevatedButton(
+                      child: Text(
+                        '퀴즈 시작',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Colors.deepPurple),
+                        ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => QuizScreen(
+                              quizs: quizs,
+                        ),
+                        ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
