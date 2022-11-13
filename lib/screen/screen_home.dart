@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(
             title: Text('Quiz App'),
             backgroundColor: Colors.deepPurple,
-            leading: Container(),
+            leading: Container(),  // AppBar에서 페이지 이동시 뒤로가기 버튼 지우기 효과
           ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
