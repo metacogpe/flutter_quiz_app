@@ -23,7 +23,14 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Center(child: Image.asset('images/quiz.jpg', width: width * 0.8,),)
+              Center(
+                child: Image.asset(
+                  'images/quiz.jpg', 
+                  width: width * 0.8,
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(width * 0.024),
+              ),
             ],
           ),
         ),
