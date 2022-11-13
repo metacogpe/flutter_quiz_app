@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/screen/screen_quiz.dart';
 
 import '../model/model_quiz.dart';
 
@@ -25,9 +26,12 @@ class _HomeScreenState extends State<HomeScreen> {
       'answer': 0
     }),
   ];
+
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size; // 반응형 위한 사이즈 가져오기
+    Size screenSize = MediaQuery
+        .of(context)
+        .size; // 반응형 위한 사이즈 가져오기
     double width = screenSize.width;
     double height = screenSize.height;
 
@@ -77,16 +81,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ButtonTheme(
                   minWidth: width * 0.8,
                   height: height * 0.05,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
                   child: ElevatedButton(
                     child: Text(
                       '퀴즈 시작',
                       style: TextStyle(color: Colors.white),
                     ),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
+                      backgroundColor: MaterialStateProperty.all(
+                          Colors.deepPurple),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => QuizScreen(
+                            quizs: quizs,
+                      ),
+                      ),
+                      );
+                    },
                   ),
                 ),
               ),
