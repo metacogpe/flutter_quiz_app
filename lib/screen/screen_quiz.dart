@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:quiz_app/model/model_quiz.dart';
+import 'package:quiz_app/screen/screen_result.dart';
 import 'package:quiz_app/widget/widget_candidate.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -19,11 +20,13 @@ class _QuizScreenState extends State<QuizScreen> {
   List<int> _answers = [-1, -1, -1]; // 퀴즈별 답안
   List<bool> _answerState = [false, false, false, false]; // 4개 보기의 눌린 상태
   int _currentIndex = 0; // 현재 보고 있는 퀴즈
-  SwiperController _controller = SwiperController();  // 다음 퀴즈로 넘기기 컨트롤러
+  SwiperController _controller = SwiperController(); // 다음 퀴즈로 넘기기 컨트롤러
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size; // 반응형 위한 사이즈 가져오기
+    Size screenSize = MediaQuery
+        .of(context)
+        .size; // 반응형 위한 사이즈 가져오기
     double width = screenSize.width;
     double height = screenSize.height;
     return SafeArea(
@@ -103,10 +106,10 @@ class _QuizScreenState extends State<QuizScreen> {
                 child: ElevatedButton(
                   child: _currentIndex == widget.quizs.length - 1
                       ? Text('결과보기',
-                          style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white),
                   )
                       : Text('다음문제',
-                          style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white),
                   ),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
@@ -115,13 +118,23 @@ class _QuizScreenState extends State<QuizScreen> {
                   onPressed: _answers[_currentIndex] == -1
                       ? null
                       : () {
-                          if (_currentIndex == widget.quizs.length - 1) {}
-                          else {
-                            _answerState = [false, false, false, false];
-                            _currentIndex += 1;
-                            _controller.next();  // 정의한 SwiperController 적용
-                          }
-                        },
+                    if (_currentIndex == widget.quizs.length - 1) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResultScreen(
+                                  answers: _answers,
+                                  quizs: widget.quizs,
+                              ),
+                          ),
+                      );
+                    }
+                    else {
+                      _answerState = [false, false, false, false];
+                      _currentIndex += 1;
+                      _controller.next(); // 정의한 SwiperController 적용
+                    }
+                  },
                 ),
               ),
             ),
