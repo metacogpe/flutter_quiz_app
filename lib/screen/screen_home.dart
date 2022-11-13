@@ -31,6 +31,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Padding(padding: EdgeInsets.all(width * 0.024),
               ),
+              Text(
+                'Flutter Quiz App',
+                style: TextStyle(
+                  fontSize: width * 0.065,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'Info About Quiz\n 퀴즈 풀기를 눌러 주세요.',
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
