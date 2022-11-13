@@ -42,6 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 'Info About Quiz\n 퀴즈 풀기를 눌러 주세요.',
                 textAlign: TextAlign.center,
               ),
+              Padding(
+                  padding: EdgeInsets.all(width * 0.048),
+              ),
+
             ],
           ),
         ),
