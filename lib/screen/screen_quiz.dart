@@ -1,5 +1,6 @@
 // 퀴즈 화면 구현
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:quiz_app/model/model_quiz.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -34,12 +35,28 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
               width: width * 0.85,
               height: height * 0.5,
+              child: Swiper(
+                physics: NeverScrollableScrollPhysics(),
+                loop: false,
+                itemCount: widget.quizs.length,
+                itemBuilder: (BuildContext context, int index){
+                  return _buildQuizCard(widget.quizs[index], width, height);
+                },
+              ),
             ),
           ),
         ),
     );
   }
 
+  Widget _buildQuizCard(Quiz quiz, double width, double height) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white)
+      ),
+    );
+  }
 }
 
 
