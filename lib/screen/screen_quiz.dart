@@ -21,9 +21,7 @@ class _QuizScreenState extends State<QuizScreen> {
   int _currentIndex = 0; // 현재 보고 있는 퀴즈
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery
-        .of(context)
-        .size; // 반응형 위한 사이즈 가져오기
+    Size screenSize = MediaQuery.of(context).size; // 반응형 위한 사이즈 가져오기
     double width = screenSize.width;
     double height = screenSize.height;
     return SafeArea(
@@ -51,13 +49,12 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-
   Widget _buildQuizCard(Quiz quiz, double width, double height) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white),
-        color: Colors.white),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.white),
+          color: Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -84,46 +81,87 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
             ),
           ),
-          Expanded(child: Container(),  // 남는 여백 모두 채우기
+          Expanded(
+            child: Container(), // 남는 여백 모두 채우기
           ),
-          Column(children: _buildCandidates(width, quiz),),  // 보기를 아래에 별도의 함수로 정의
+          Column(
+            children: _buildCandidates(width, quiz),
+          ),
+          // 보기를 아래에 별도의 함수로 정의
+          Container(
+            padding: EdgeInsets.all(width * 0.024),
+            child: Center(
+              child: ButtonTheme(
+                minWidth: width * 0.5,
+                height: height * 0.05,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ElevatedButton(
+                  child: _currentIndex == widget.quizs.length - 1
+                      ? Text('결과보기',
+                          style: TextStyle(color: Colors.white),
+                  )
+                      : Text('다음문제',
+                          style: TextStyle(color: Colors.white),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Colors.deepPurple),
+                  ),
+                  onPressed: _answers[_currentIndex] == -1
+                      ? null
+                      : () {
+                          if (_currentIndex == widget.quizs.length - 1) {}
+                          else {
+                            _answerState = [false, false, false, false];
+                            _currentIndex += 1;
+                          }
+                        },
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   } // _buildQuizCard
+
 // 보기 4개 리스트
   List<Widget> _buildCandidates(double width, Quiz quiz) {
     List<Widget> _children = [];
     for (int i = 0; i < 4; i++) {
       _children.add(
-        CandWidget(index: i,   // 위젯 폴더의 별도 위젯으로 정의된 것 사용 : widget_candidate.dart
-            text: quiz.candidates[i],
-            width: width,
-            answerState: _answerState[i],
-            tap: () {  // 탭 시의 상태 관리
-              setState(() {
-                for (int j = 0; j < 4; j++) {
-                  if (j == i) {
-                    _answerState[j] = true;
-                    _answers[_currentIndex] = j;
-                  } else {
-                    _answerState[j] = false;
-                  }
+        CandWidget(
+          index: i,
+          // 위젯 폴더의 별도 위젯으로 정의된 것 사용 : widget_candidate.dart
+          text: quiz.candidates[i],
+          width: width,
+          answerState: _answerState[i],
+          tap: () {
+            // 탭 시의 상태 관리
+            setState(() {
+              for (int j = 0; j < 4; j++) {
+                if (j == i) {
+                  _answerState[j] = true;
+                  _answers[_currentIndex] = j;
+                  //print(_answers[_currentIndex]); // 디버깅에 사용 : 탭으로 선택 여부 확인
+                } else {
+                  _answerState[j] = false;
                 }
-              });
-            },
+              }
+            });
+          },
         ), // CandWidget
       ); // _children.add
-      _children.add(  // children 에 패딩 추가
+      _children.add(
+        // children 에 패딩 추가
         Padding(
           padding: EdgeInsets.all(width * 0.024),
         ),
       );
-    }  // for
+    } // for
     return _children;
   } // _buildCandidates
 
 } // QuizScreen
-
-
-

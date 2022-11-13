@@ -88,10 +88,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       '퀴즈 시작',
                       style: TextStyle(color: Colors.white),
                     ),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          Colors.deepPurple),
-                    ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.deepPurple),
+                      ),
                     onPressed: () {
                       Navigator.push(
                         context,
