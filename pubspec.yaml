@@ -37,6 +37,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_swiper: # 옆으로 자연스럽게 화면 넘기기
+  auto_size_text: # 텍스트 영역 넘지 않도록 제어
 
 dev_dependencies:
   flutter_test:
