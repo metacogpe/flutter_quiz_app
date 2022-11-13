@@ -49,6 +49,29 @@ class _HomeScreenState extends State<HomeScreen> {
             _buildStep(width, '1. 랜덤 퀴즈'),
             _buildStep(width, '2. 문제를 읽고 정답을 선택'),
             _buildStep(width, '3. 만점에 도전'),
+            Padding(
+              padding: EdgeInsets.all(width * 0.048),
+            ),
+            Container(
+              padding: EdgeInsets.all(width * 0.036),
+              child: Center(
+                child: ButtonTheme(
+                  minWidth: width * 0.8,
+                  height: height * 0.05,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  child: ElevatedButton(
+                    child: Text(
+                      '퀴즈 시작',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
