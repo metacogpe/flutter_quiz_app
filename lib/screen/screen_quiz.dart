@@ -78,7 +78,9 @@ class _QuizScreenState extends State<QuizScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-          )
+          ),
+          Expanded(child: Container(),
+          ),
         ],
       ),
     );
