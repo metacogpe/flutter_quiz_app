@@ -19,6 +19,8 @@ class _QuizScreenState extends State<QuizScreen> {
   List<int> _answers = [-1, -1, -1]; // 퀴즈별 답안
   List<bool> _answerState = [false, false, false, false]; // 4개 보기의 눌린 상태
   int _currentIndex = 0; // 현재 보고 있는 퀴즈
+  SwiperController _controller = SwiperController();  // 다음 퀴즈로 넘기기 컨트롤러
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size; // 반응형 위한 사이즈 가져오기
@@ -36,6 +38,7 @@ class _QuizScreenState extends State<QuizScreen> {
             width: width * 0.85,
             height: height * 0.5,
             child: Swiper(
+              controller: _controller,
               physics: NeverScrollableScrollPhysics(),
               loop: false,
               itemCount: widget.quizs.length,
@@ -116,6 +119,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           else {
                             _answerState = [false, false, false, false];
                             _currentIndex += 1;
+                            _controller.next();  // 정의한 SwiperController 적용
                           }
                         },
                 ),
