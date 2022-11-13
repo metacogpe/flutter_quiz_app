@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:quiz_app/model/model_quiz.dart';
+import 'package:quiz_app/widget/widget_candidate.dart';
 
 class QuizScreen extends StatefulWidget {
   List<Quiz> quizs;
@@ -16,11 +17,13 @@ class QuizScreen extends StatefulWidget {
 class _QuizScreenState extends State<QuizScreen> {
   // 3가지 상태 정의 : 퀴즈별 답안, 답안상태
   List<int> _answers = [-1, -1, -1]; // 퀴즈별 답안
-  List<bool> _answersState = [false, false, false, false]; // 4개 보기의 눌린 상태
+  List<bool> _answerState = [false, false, false, false]; // 4개 보기의 눌린 상태
   int _currentIndex = 0; // 현재 보고 있는 퀴즈
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size; // 반응형 위한 사이즈 가져오기
+    Size screenSize = MediaQuery
+        .of(context)
+        .size; // 반응형 위한 사이즈 가져오기
     double width = screenSize.width;
     double height = screenSize.height;
     return SafeArea(
@@ -48,11 +51,13 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
+
   Widget _buildQuizCard(Quiz quiz, double width, double height) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.white)),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white),
+        color: Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -79,10 +84,46 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
             ),
           ),
-          Expanded(child: Container(),
+          Expanded(child: Container(),  // 남는 여백 모두 채우기
           ),
+          Column(children: _buildCandidates(width, quiz),),  // 보기를 아래에 별도의 함수로 정의
         ],
       ),
     );
-  }
-}
+  } // _buildQuizCard
+// 보기 4개 리스트
+  List<Widget> _buildCandidates(double width, Quiz quiz) {
+    List<Widget> _children = [];
+    for (int i = 0; i < 4; i++) {
+      _children.add(
+        CandWidget(index: i,   // 위젯 폴더의 별도 위젯으로 정의된 것 사용 : widget_candidate.dart
+            text: quiz.candidates[i],
+            width: width,
+            answerState: _answerState[i],
+            tap: () {  // 탭 시의 상태 관리
+              setState(() {
+                for (int j = 0; j < 4; j++) {
+                  if (j == i) {
+                    _answerState[j] = true;
+                    _answers[_currentIndex] = j;
+                  } else {
+                    _answerState[j] = false;
+                  }
+                }
+              });
+            },
+        ), // CandWidget
+      ); // _children.add
+      _children.add(  // children 에 패딩 추가
+        Padding(
+          padding: EdgeInsets.all(width * 0.024),
+        ),
+      );
+    }  // for
+    return _children;
+  } // _buildCandidates
+
+} // QuizScreen
+
+
+
