@@ -47,6 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.all(width * 0.048),
             ),
             _buildStep(width, '1. 랜덤 퀴즈'),
+            _buildStep(width, '2. 문제를 읽고 정답을 선택'),
+            _buildStep(width, '3. 만점에 도전'),
           ],
         ),
       ),
